@@ -56,10 +56,20 @@
 ;;   (set-intersection '(1 2) '(2 4)) => '(2)
 
 (defun set-intersection (set-1 set-2)
+ (cond
+    ((null set-1) nil)  ;; base case
+    ((inside_set (car set-1) set-2)  ;; check 1st element if equal
+     (cons (car set-1) (set-intersection (cdr set-1) set-2)))  ;; add element to result
+    (t (set-intersection (cdr set-1) set-2))))  ;; otw continue to next element
 
-  ;;Your implementation go here
+;; helper function to check for element in a list
+(defun inside_set (element set)
+  (cond
+    ((null set) nil)  ;; if set is empty -> return nil
+    ((equal element (car set)) t)  ;; if elements match -> return true
+    (t (inside_set element (cdr set)))))  ;; otw continue
 
-)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 4:Ermiyas
@@ -114,9 +124,16 @@
 
 ;;  (boolean-implies nil nil) => t
 
+;; t => nil -> nil
+;; nil => nil -> t
+;; t => t -> t
+;; nil => t -> t
+;; a -> b = not(a) or b
+
+
 (defun boolean-implies (a b)
 
-;;<Your implementation go here >
+  (or (not a) b)
 
 )
 
@@ -179,9 +196,11 @@
 
 ;;     (merge-sort '(2 1 5 0) #'>) => '(5 2 1 0)
 
+;; merge sort -> divide into two half / merge sorted halves
+
 (defun merge-sort (list predicate)
 
-;;<Your implementation go here >
+ ;;<Your implementation go here > 
 
 )
 
