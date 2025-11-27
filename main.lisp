@@ -15,11 +15,13 @@
 
 ;;  (set-member '(1 2) 3) =>  NIL
 
-(defun set-member (set item)
+(defun set-member (set item)  
+  (cond
+    ((equal set nil) nil) ; 
+    ((equal (car set) item) t)
+    (t (set-member (cdr set) item))))  
+  
 
-  ;;Your implementation go here
-
-)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 2:Jonathon
@@ -87,10 +89,13 @@
 ;;   (set-diff '(1 2) '(2 4)) => '(1)
 
 (defun set-diff (set-1 set-2)
-
-  ;;Your implementation go here
-
-)
+  (cond
+    ((equal set-1 nil) nil)
+    ((set-member set-2 (car set-1))
+     (set-diff (cdr set-1) set-2))
+    (t
+     (cons (car set-1)
+           (set-diff (cdr set-1) set-2))))) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 5:Jonathon
@@ -207,5 +212,6 @@
  
 
  
+
 
 
