@@ -37,9 +37,11 @@
 ;;   (set-union '(1 2) '(2 4)) => '(1 2 4)
 
 (defun set-union (set-1 set-2)
-
-  ;;Your implementation go here
-
+  (cond 
+    ((equal set-1 nil) set-2)
+    ((set-member set-2 (car set-1)) (set-union (cdr set-1) set-2))
+    (t (set-union (cdr set-1) (cons (car set-1) set-2)))
+    )
 )
 
  
@@ -111,9 +113,10 @@
 ;;  (boolean-xor nil nil) => nil
 
 (defun boolean-xor (a b)
-
-  ;;Your implementation go here
-
+  (cond
+      ((equal a b) nil)
+      (t t)
+  )
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -212,6 +215,7 @@
  
 
  
+
 
 
 
