@@ -179,10 +179,31 @@
 
 ;;  (boolean-eval '(and t (or nil t)) => t
 
+;; Helper function for boolean-eval
+(defun is-op (exp)
+  (cond
+    ((equal exp t) nil)
+    ((equal exp nil) nil)
+    (t t)
+  )
+)
+
 (defun boolean-eval (exp)
-
-;;<Your implementation go here >
-
+  (let ((op (car exp))
+        (v1 (second exp))
+        (v2 (third exp))
+        )
+    (cond
+      ((is-op v1) (boolean-eval (list op (boolean-eval v1) v2)))
+      ((is-op v2) (boolean-eval (list op v1 (boolean-eval v2))))
+      ((equal op 'not) (not v1))
+      ((equal op 'and) (and v1 v2))
+      ((equal op 'or) (or v1 v2))
+      ((equal op 'xor) (boolean-xor v1 v2))
+      ((equal op 'implies) (boolean-implies v1 v2))
+      ((equal op 'iff) (boolean-iff v1 v2))
+    )
+  )
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -215,6 +236,7 @@
  
 
  
+
 
 
 
