@@ -228,14 +228,84 @@
 ;; merge sort -> divide into two half / merge sorted halves
 
 (defun merge-sort (list predicate)
+  (cond
+    ;; Base Case:
+    ;; if the list is empty or length is ≤ 1,
+    ;; gets returned
+    ((or (equal list nil) (<= (length list) 1)) list)
 
- ;;<Your implementation go here > 
+    ;; Recursive Case
+    ;; if the list is 2 or more elements
+    (T (let* (
 
-)
+            ;; Midpoint:
+            ;; calculated by dividing the list length by 2
+            (mid (/ (length list) 2))
+
+            ;; Left Side
+            (left
+             ;; labels create local scope for take function
+             ;; takes the first N items from a list one by one using cons
+             (labels ((take (lst n)
+                        (cond
+                          ;; base case:
+                          ;; if list is nil or n ≤ 0, return nil
+                          ((or (equal lst nil) (<= n 0)) NIL)
+
+                          ;; otw, make a new list by:
+                          ;; taking (car lst) → first element, recursively taking N-1 from (cdr lst), and CONS them together
+                          (T (cons (car lst) (take (cdr lst) (- n 1)))))))
+                
+                ;; Run the function on the original list
+                ;; to produce the left half
+                (take list mid)))
+
+            ;; Right Side
+            (right
+             ;; local recursive function drop
+             ;; skips first N items and returns the remainder
+             (labels ((drop (lst n)
+                        (cond
+                          ;; base case:
+                          ;; if list is nil or n ≤ 0, stop dropping and return the list
+                          ((or (equal lst nil) (<= n 0)) lst)
+
+                          ;; otw, keep dropping N-1 from (cdr lst)
+                          ;; until 0
+                          (T
+                           (drop (cdr lst) (- n 1))))))
+                (drop list mid)))
+            )
+
+       ;; Merge Function
+       ;; combines 2 already-sorted lists into 1 sorted list.
+       (labels ((merge-lists (a b)
+                  (cond
+                    ;; if A is empty → B, return B
+                    ((equal a NIL) b)
+
+                    ;; if B is empty → A, return A
+                    ((equal b NIL) a)
+
+                    ;; checks for when predicate is #'< like (car a) < (car b)
+                    ((funcall predicate (car a) (car b))
+
+                     ;; if a is greater than A_head + merge( A_tail , B )
+                     (cons (car a) (merge-lists (cdr a) b)))
+
+                    ;; otw, B_head + merge( A , B_tail )
+                    (T
+                     (cons (car b) (merge-lists a (cdr b)))))))
+
+         ;; recursively sort each half, then call merge-lists to merge them
+         (merge-lists (merge-sort left predicate)
+                      (merge-sort right predicate))
+         )))))
 
  
 
  
+
 
 
 
