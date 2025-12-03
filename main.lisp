@@ -159,10 +159,11 @@
 ;;  (boolean-iff nil nil) => t
 
 (defun boolean-iff (a b)
+  ;; a ↔ b is true when both have the same truth value
+  (or (and a b)
+      (and (not a) (not b)))
+  )
 
-;;<Your implementation go here >
-
-)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Problem 8:Jonathon
@@ -305,6 +306,7 @@
  
 
  
+
 
 
 
