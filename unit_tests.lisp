@@ -132,6 +132,19 @@
 ;; Problem: 7
 
 
+(defun test-boolean-iff ()
+  (assert (eq (boolean-iff t t) t)
+          nil "Test 1 Failed")
+  (assert (eq (boolean-iff t nil) nil)
+          nil "Test 2 Failed")
+  (assert (eq (boolean-iff nil t) nil)
+          nil "Test 3 Failed")
+  (assert (eq (boolean-iff nil nil) t)
+          nil "Test 4 Failed")
+  (format t "BOOLEAN-IFF tests passed.~%"))
+
+(test-boolean-iff)
+
 
 ;; Problem: 8
 (defun test-boolean-eval()
