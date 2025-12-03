@@ -173,3 +173,26 @@
 (test-boolean-eval)
 
 ;; Problem: 9
+(defun test-merge-sort ()
+  ;; Base cases
+  (assert (equal (merge-sort '() #'<) '()))
+  (assert (equal (merge-sort '(42) #'<) '(42)))
+
+  ;; ascending/descending
+  (assert (equal (merge-sort '(2 1 5 0) #'<) '(0 1 2 5)))
+  (assert (equal (merge-sort '(2 1 5 0) #'>) '(5 2 1 0)))
+
+  ;; duplicates
+  (assert (equal (merge-sort '(3 1 2 1 3) #'<) '(1 1 2 3 3)))
+  (assert (equal (merge-sort '(5 5 5 5) #'<) '(5 5 5 5)))
+
+  ;; mixed values with negs
+  (assert (equal (merge-sort '(-5 -1 -3 0 2) #'<) '(-5 -3 -1 0 2)))
+  (assert (equal (merge-sort '(10 -2 3 7 0 -8) #'<) '(-8 -2 0 3 7 10)))
+
+  ;; message for success
+  (format t "Merge-Sort passed the tests~%"))
+
+
+(test-merge-sort)
+
